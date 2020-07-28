@@ -9334,12 +9334,6 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
             }
 
             @Test
-            @TestMetadata("contextReceiver.kt")
-            public void testContextReceiver() throws Exception {
-                runTest("compiler/testData/diagnostics/tests/extensions/contextReceiver.kt");
-            }
-
-            @Test
             @TestMetadata("ExtensionFunctions.kt")
             public void testExtensionFunctions() throws Exception {
                 runTest("compiler/testData/diagnostics/tests/extensions/ExtensionFunctions.kt");
@@ -9433,6 +9427,46 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
             @TestMetadata("variableInvoke.kt")
             public void testVariableInvoke() throws Exception {
                 runTest("compiler/testData/diagnostics/tests/extensions/variableInvoke.kt");
+            }
+
+            @Nested
+            @TestMetadata("compiler/testData/diagnostics/tests/extensions/contextReceivers")
+            @TestDataPath("$PROJECT_ROOT")
+            public class ContextReceivers {
+                @Test
+                public void testAllFilesPresentInContextReceivers() throws Exception {
+                    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/extensions/contextReceivers"), Pattern.compile("^(.*)\\.kts?$"), Pattern.compile("^(.+)\\.fir\\.kts?$"), true);
+                }
+
+                @Test
+                @TestMetadata("insideDeclaration.kt")
+                public void testInsideDeclaration() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/extensions/contextReceivers/insideDeclaration.kt");
+                }
+
+                @Test
+                @TestMetadata("typeParameterized.kt")
+                public void testTypeParameterized() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/extensions/contextReceivers/typeParameterized.kt");
+                }
+
+                @Test
+                @TestMetadata("typeParameterizedList.kt")
+                public void testTypeParameterizedList() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/extensions/contextReceivers/typeParameterizedList.kt");
+                }
+
+                @Test
+                @TestMetadata("withExplicitReceiver.kt")
+                public void testWithExplicitReceiver() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/extensions/contextReceivers/withExplicitReceiver.kt");
+                }
+
+                @Test
+                @TestMetadata("withExplicitReceiverError.kt")
+                public void testWithExplicitReceiverError() throws Exception {
+                    runTest("compiler/testData/diagnostics/tests/extensions/contextReceivers/withExplicitReceiverError.kt");
+                }
             }
         }
 

@@ -417,6 +417,7 @@ class CandidateResolver(
     private fun CallCandidateResolutionContext<*>.checkReceiverTypeError(): Unit = check {
         val extensionReceiver = candidateDescriptor.extensionReceiverParameter
         val dispatchReceiver = candidateDescriptor.dispatchReceiverParameter
+        val contextReceivers = candidateDescriptor.contextReceiverParameters
 
         // For the expressions like '42.(f)()' where f: String.() -> Unit we'd like to generate a type mismatch error on '1',
         // not to throw away the candidate, so the following check is skipped.
@@ -424,6 +425,11 @@ class CandidateResolver(
             checkReceiverTypeError(extensionReceiver, candidateCall.extensionReceiver)
         }
         checkReceiverTypeError(dispatchReceiver, candidateCall.dispatchReceiver)
+
+        assert(contextReceivers.size == candidateCall.contextReceivers.size)
+        for (i in contextReceivers.indices) {
+            checkReceiverTypeError(contextReceivers[i], candidateCall.contextReceivers[i])
+        }
     }
 
     private fun CallCandidateResolutionContext<*>.checkReceiverTypeError(

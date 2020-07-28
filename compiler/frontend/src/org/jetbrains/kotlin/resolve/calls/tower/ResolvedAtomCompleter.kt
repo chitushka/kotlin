@@ -465,7 +465,7 @@ class ResolvedAtomCompleter(
 
         val resolvedCall = ResolvedCallImpl(
             psiCall, callableCandidate.candidate, resultTypeInfo.dispatchReceiver,
-            resultTypeInfo.extensionReceiver, callableCandidate.explicitReceiverKind,
+            resultTypeInfo.extensionReceiver, callableCandidate.explicitReceiverKind, emptyList(),
             null, temporaryTrace, tracing, MutableDataFlowInfoForArguments.WithoutArgumentsCheck(DataFlowInfo.EMPTY)
         )
 
