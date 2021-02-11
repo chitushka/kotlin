@@ -1,0 +1,39 @@
+FILE fqName:<root> fileName:/simpleEmptyVararg.kt
+  FUN name:foo visibility:public modality:FINAL <> (x:kotlin.String, y:kotlin.Array<out kotlin.String>) returnType:kotlin.String
+    VALUE_PARAMETER name:x index:0 type:kotlin.String
+    VALUE_PARAMETER name:y index:1 type:kotlin.Array<out kotlin.String> varargElementType:kotlin.String [vararg]
+    BLOCK_BODY
+      RETURN type=kotlin.Nothing from='public final fun foo (x: kotlin.String, vararg y: kotlin.String): kotlin.String declared in <root>'
+        WHEN type=kotlin.String origin=IF
+          BRANCH
+            if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ
+              arg0: CALL 'public final fun <get-size> (): kotlin.Int declared in kotlin.Array' type=kotlin.Int origin=GET_PROPERTY
+                $this: GET_VAR 'y: kotlin.Array<out kotlin.String> [vararg] declared in <root>.foo' type=kotlin.Array<out kotlin.String> origin=null
+              arg1: CONST Int type=kotlin.Int value=0
+            then: CALL 'public final fun plus (other: kotlin.Any?): kotlin.String [operator] declared in kotlin.String' type=kotlin.String origin=PLUS
+              $this: GET_VAR 'x: kotlin.String declared in <root>.foo' type=kotlin.String origin=null
+              other: CONST String type=kotlin.String value="K"
+          BRANCH
+            if: CONST Boolean type=kotlin.Boolean value=true
+            then: CONST String type=kotlin.String value="Fail"
+  FUN name:call visibility:public modality:FINAL <> (f:kotlin.Function1<kotlin.String, kotlin.String>, x:kotlin.String) returnType:kotlin.String
+    VALUE_PARAMETER name:f index:0 type:kotlin.Function1<kotlin.String, kotlin.String>
+    VALUE_PARAMETER name:x index:1 type:kotlin.String
+    BLOCK_BODY
+      RETURN type=kotlin.Nothing from='public final fun call (f: kotlin.Function1<kotlin.String, kotlin.String>, x: kotlin.String): kotlin.String declared in <root>'
+        CALL 'public abstract fun invoke (p1: P1 of kotlin.Function1): R of kotlin.Function1 [operator] declared in kotlin.Function1' type=kotlin.String origin=INVOKE
+          $this: GET_VAR 'f: kotlin.Function1<kotlin.String, kotlin.String> declared in <root>.call' type=kotlin.Function1<kotlin.String, kotlin.String> origin=VARIABLE_AS_FUNCTION
+          p1: GET_VAR 'x: kotlin.String declared in <root>.call' type=kotlin.String origin=null
+  FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
+    BLOCK_BODY
+      RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in <root>'
+        CALL 'public final fun call (f: kotlin.Function1<kotlin.String, kotlin.String>, x: kotlin.String): kotlin.String declared in <root>' type=kotlin.String origin=null
+          f: BLOCK type=kotlin.Function1<kotlin.String, kotlin.String> origin=ADAPTED_FUNCTION_REFERENCE
+            FUN ADAPTER_FOR_CALLABLE_REFERENCE name:foo visibility:local modality:FINAL <> (p0:kotlin.String) returnType:kotlin.String
+              VALUE_PARAMETER ADAPTER_PARAMETER_FOR_CALLABLE_REFERENCE name:p0 index:0 type:kotlin.String
+              BLOCK_BODY
+                RETURN type=kotlin.Nothing from='local final fun foo (p0: kotlin.String): kotlin.String declared in <root>.box'
+                  CALL 'public final fun foo (x: kotlin.String, vararg y: kotlin.String): kotlin.String declared in <root>' type=kotlin.String origin=null
+                    x: GET_VAR 'p0: kotlin.String declared in <root>.box.foo' type=kotlin.String origin=null
+            FUNCTION_REFERENCE 'local final fun foo (p0: kotlin.String): kotlin.String declared in <root>.box' type=kotlin.Function1<kotlin.String, kotlin.String> origin=ADAPTED_FUNCTION_REFERENCE reflectionTarget=public final fun foo (x: kotlin.String, vararg y: kotlin.String): kotlin.String declared in <root>
+          x: CONST String type=kotlin.String value="O"

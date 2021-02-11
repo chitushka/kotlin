@@ -2213,6 +2213,12 @@ public class Fir2IrTextTestGenerated extends AbstractFir2IrTextTest {
         }
 
         @Test
+        @TestMetadata("simpleEmptyVararg.kt")
+        public void testSimpleEmptyVararg() throws Exception {
+            runTest("compiler/testData/ir/irText/firProblems/simpleEmptyVararg.kt");
+        }
+
+        @Test
         @TestMetadata("SimpleTypeMarker.kt")
         public void testSimpleTypeMarker() throws Exception {
             runTest("compiler/testData/ir/irText/firProblems/SimpleTypeMarker.kt");

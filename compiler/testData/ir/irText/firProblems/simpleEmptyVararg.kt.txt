@@ -1,0 +1,20 @@
+fun foo(x: String, vararg y: String): String {
+  return when {
+    EQEQ(arg0 = y.<get-size>(), arg1 = 0) -> x.plus(other = "K")
+    else -> "Fail"
+  }
+}
+
+fun call(f: Function1<String, String>, x: String): String {
+  return f.invoke(p1 = x)
+}
+
+fun box(): String {
+  return call(f = { // BLOCK
+    local fun foo(p0: String): String {
+      return foo(x = p0)
+    }
+
+    ::foo
+  }, x = "O")
+}
