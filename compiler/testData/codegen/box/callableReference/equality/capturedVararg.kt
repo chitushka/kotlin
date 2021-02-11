@@ -2,7 +2,6 @@
 // WASM_MUTE_REASON: FAILS_IN_JS_IR
 // IGNORE_BACKEND: JS, JS_IR
 // IGNORE_BACKEND: JS_IR_ES6
-// IGNORE_BACKEND_FIR: JVM_IR
 // FILE: test.kt
 
 fun checkEqual(x: Any, y: Any) {
