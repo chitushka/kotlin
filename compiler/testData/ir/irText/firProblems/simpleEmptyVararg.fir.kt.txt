@@ -10,5 +10,8 @@ fun call(f: Function1<String, String>, x: String): String {
 }
 
 fun box(): String {
-  return call(f = ::foo, x = "O")
+  return call(f = local fun foo(p0: String): String {
+    return foo(x = p0)
+  }
+, x = "O")
 }

@@ -28,5 +28,11 @@ FILE fqName:<root> fileName:/simpleEmptyVararg.kt
     BLOCK_BODY
       RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in <root>'
         CALL 'public final fun call (f: kotlin.Function1<kotlin.String, kotlin.String>, x: kotlin.String): kotlin.String declared in <root>' type=kotlin.String origin=null
-          f: FUNCTION_REFERENCE 'public final fun foo (x: kotlin.String, vararg y: kotlin.String): kotlin.String declared in <root>' type=kotlin.reflect.KFunction1<kotlin.String, kotlin.String> origin=null reflectionTarget=<same>
+          f: FUN_EXPR type=kotlin.Function1<kotlin.String, kotlin.String> origin=ADAPTED_FUNCTION_REFERENCE
+            FUN ADAPTER_FOR_CALLABLE_REFERENCE name:foo visibility:local modality:FINAL <> (p0:kotlin.String) returnType:kotlin.String
+              VALUE_PARAMETER ADAPTER_PARAMETER_FOR_CALLABLE_REFERENCE name:p0 index:0 type:kotlin.String
+              BLOCK_BODY
+                RETURN type=kotlin.Nothing from='local final fun foo (p0: kotlin.String): kotlin.String declared in <root>.box'
+                  CALL 'public final fun foo (x: kotlin.String, vararg y: kotlin.String): kotlin.String declared in <root>' type=kotlin.String origin=null
+                    x: GET_VAR 'p0: kotlin.String declared in <root>.box.foo' type=kotlin.String origin=null
           x: CONST String type=kotlin.String value="O"

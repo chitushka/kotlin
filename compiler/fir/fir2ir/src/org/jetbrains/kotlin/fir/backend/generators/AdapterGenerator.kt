@@ -103,19 +103,8 @@ internal class AdapterGenerator(
     ): Boolean {
         // Unbound callable reference 'A::foo'
         val shift = if (callableReferenceAccess.explicitReceiver is FirResolvedQualifier) 1 else 0
-        val typeArguments = type.arguments
-        // Drop the return type from type arguments
-        val expectedParameterSize = typeArguments.size - 1 - shift
-        if (expectedParameterSize < function.valueParameters.size) {
-            return false
-        }
-        var hasSpreadCase = false
-        function.valueParameters.forEachIndexed { index, irValueParameter ->
-            if (irValueParameter.isVararg && typeArguments[shift + index] == irValueParameter.varargElementType) {
-                hasSpreadCase = true
-            }
-        }
-        return hasSpreadCase
+        val varargValueParameter = function.valueParameters.find { it.isVararg } ?: return false
+        return type.arguments.dropLast(1).drop(shift).any { it == varargValueParameter.varargElementType }
     }
 
     internal fun ConeKotlinType.kFunctionTypeToFunctionType(): IrSimpleType =
