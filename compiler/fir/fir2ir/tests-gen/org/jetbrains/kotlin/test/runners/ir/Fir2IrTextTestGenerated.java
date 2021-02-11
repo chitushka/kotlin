@@ -2117,6 +2117,12 @@ public class Fir2IrTextTestGenerated extends AbstractFir2IrTextTest {
         }
 
         @Test
+        @TestMetadata("emptyVarargAndDefault.kt")
+        public void testEmptyVarargAndDefault() throws Exception {
+            runTest("compiler/testData/ir/irText/firProblems/emptyVarargAndDefault.kt");
+        }
+
+        @Test
         @TestMetadata("Fir2IrClassifierStorage.kt")
         public void testFir2IrClassifierStorage() throws Exception {
             runTest("compiler/testData/ir/irText/firProblems/Fir2IrClassifierStorage.kt");

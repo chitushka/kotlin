@@ -104,6 +104,7 @@ internal class AdapterGenerator(
         // Unbound callable reference 'A::foo'
         val shift = if (callableReferenceAccess.explicitReceiver is FirResolvedQualifier) 1 else 0
         val varargValueParameter = function.valueParameters.find { it.isVararg } ?: return false
+        if (function.valueParameters.any { it.hasDefaultValue() }) return true
         return type.arguments.dropLast(1).drop(shift).any { it == varargValueParameter.varargElementType }
     }
 

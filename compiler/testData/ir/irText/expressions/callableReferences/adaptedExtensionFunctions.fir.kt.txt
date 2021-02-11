@@ -28,5 +28,8 @@ fun testExtensionDefault() {
 }
 
 fun testExtensionBoth() {
-  use(f = ::extensionBoth)
+  use(f = local fun extensionBoth(p0: C, p1: Int) {
+    p0.extensionBoth(i = p1)
+  }
+)
 }
