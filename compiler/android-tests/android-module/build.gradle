@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {        
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
     }
 }
 apply plugin: 'com.android.application'
@@ -78,6 +78,22 @@ android {
         }
 
         reflect0 {
+            dimension "box"
+        }
+
+        common_ir0 {
+            dimension "box"
+        }
+
+        common_ir1 {
+            dimension "box"
+        }
+
+        common_ir2 {
+            dimension "box"
+        }
+
+        reflect_ir0 {
             dimension "box"
         }
     }
