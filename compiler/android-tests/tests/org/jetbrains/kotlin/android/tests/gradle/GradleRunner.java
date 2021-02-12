@@ -70,8 +70,9 @@ public class GradleRunner {
         System.out.println("Starting tests...");
         GeneralCommandLine test = generateCommandLine("connectedAndroidTest");
         test.addParameters("--stacktrace");
-        test.addParameters("--continue"); //run all flavors even if any fail
-        return RunUtils.execute(test).getOutput();
+        RunResult result = RunUtils.execute(test);
+        OutputUtils.checkResult(result);
+        return result.getOutput();
     }
 
     private GeneralCommandLine generateCommandLine(String taskName) {
