@@ -5,10 +5,7 @@
 
 package org.jetbrains.kotlin.descriptors.commonizer.utils
 
-import org.jetbrains.kotlin.descriptors.ClassDescriptor
-import org.jetbrains.kotlin.descriptors.ClassifierDescriptor
-import org.jetbrains.kotlin.descriptors.ClassifierDescriptorWithTypeParameters
-import org.jetbrains.kotlin.descriptors.PackageFragmentDescriptor
+import org.jetbrains.kotlin.descriptors.*
 import org.jetbrains.kotlin.descriptors.commonizer.cir.CirEntityId
 import org.jetbrains.kotlin.descriptors.commonizer.cir.CirName
 import org.jetbrains.kotlin.descriptors.commonizer.cir.CirPackageName
@@ -42,6 +39,24 @@ internal val ClassifierDescriptorWithTypeParameters.classifierId: CirEntityId
         else -> error("Unexpected containing declaration type for $this: ${owner::class}, $owner")
     }
 
+internal inline val TypeParameterDescriptor.typeParameterIndex: Int
+    get() {
+        var index = index
+        var parent = containingDeclaration
+
+        if (parent is CallableMemberDescriptor) {
+            parent = parent.containingDeclaration as? ClassifierDescriptorWithTypeParameters ?: return index
+            index += parent.declaredTypeParameters.size
+        }
+
+        while (parent is ClassifierDescriptorWithTypeParameters) {
+            parent = parent.containingDeclaration as? ClassifierDescriptorWithTypeParameters ?: break
+            index += parent.declaredTypeParameters.size
+        }
+
+        return index
+    }
+
 internal val KotlinType.signature: CirTypeSignature
     get() {
         // use of interner saves up to 95% of duplicates
@@ -52,7 +67,7 @@ private fun StringBuilder.buildTypeSignature(type: KotlinType, exploredTypeParam
     val typeParameterDescriptor = TypeUtils.getTypeParameterDescriptorOrNull(type)
     if (typeParameterDescriptor != null) {
         // N.B this is type parameter type
-        append(typeParameterDescriptor.name.asString())
+        append('#').append(typeParameterDescriptor.typeParameterIndex)
 
         if (exploredTypeParameters.add(type.makeNotNullable())) { // print upper bounds once the first time when type parameter type is met
             append(":[")

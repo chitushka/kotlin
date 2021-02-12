@@ -188,22 +188,4 @@ object CirTypeFactory {
                     type = create(projection.type, useAbbreviation)
                 )
         }
-
-    private inline val TypeParameterDescriptor.typeParameterIndex: Int
-        get() {
-            var index = index
-            var parent = containingDeclaration
-
-            if (parent is CallableMemberDescriptor) {
-                parent = parent.containingDeclaration as? ClassifierDescriptorWithTypeParameters ?: return index
-                index += parent.declaredTypeParameters.size
-            }
-
-            while (parent is ClassifierDescriptorWithTypeParameters) {
-                parent = parent.containingDeclaration as? ClassifierDescriptorWithTypeParameters ?: break
-                index += parent.declaredTypeParameters.size
-            }
-
-            return index
-        }
 }
